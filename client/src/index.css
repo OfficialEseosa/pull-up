@@ -71,6 +71,12 @@ h1 {
     margin: 0;
 }
 
+/* Red text for problems like "That email is already registered" */
+.form-error {
+    color: #d93025;
+    margin: 0;
+}
+
 /* Orange dot at the end of the logo */
 .dot {
     color: var(--orange);
