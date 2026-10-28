@@ -6,7 +6,8 @@ const express = require("express"); //imports the express module
 const app = express(); //creates the express application object
 app.use(express.json()); //parses incoming JSON requests
 //only the Vite dev server is allowed to call us from the browser
-app.use(cors({ origin: "http://localhost:5173" }));
+//(CLIENT_ORIGIN can override it, e.g. when the front end runs on another port)
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || "http://localhost:5173" }));
 
 const mysql = require("mysql2"); //uses new mysql package
 //connection settings come from .env so the password is never in the code
@@ -59,6 +60,39 @@ app.post("/register", async (req, res) => {
             return res.status(500).json({ message: "Something went wrong. Please try again." });
         }
         res.status(201).json({ message: "You have successfully registered!" });
+    });
+});
+
+//checks a username (school email) and password against the users table
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
+    //one message for every failure, so nobody can tell whether an email has an account
+    const badLogin = { message: "The login credentials were incorrect." };
+
+    if (!username || !password)
+        return res.status(400).json(badLogin);
+
+    const query = "SELECT id, first_name, last_name, school_email, password FROM users WHERE school_email = ?";
+    conn.query(query, [username], async (err, rows) => {
+        if (err) {
+            console.log("Login failed:", err);
+            return res.status(500).json({ message: "Something went wrong. Please try again." });
+        }
+        //no account with that email
+        if (rows.length === 0)
+            return res.status(401).json(badLogin);
+
+        const user = rows[0];
+        //bcrypt hashes what they typed the same way and compares it to the stored hash
+        const matches = await bcrypt.compare(password, user.password);
+        if (!matches)
+            return res.status(401).json(badLogin);
+
+        //send back who they are, but never the password hash
+        res.json({
+            message: "You have logged in successfully",
+            user: { id: user.id, first_name: user.first_name, last_name: user.last_name, school_email: user.school_email },
+        });
     });
 });
 
