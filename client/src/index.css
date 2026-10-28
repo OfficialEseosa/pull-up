@@ -1,0 +1,77 @@
+/* Site-wide defaults: DM Sans for body text, light gray background */
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--primary-color);
+    margin: 0; /* removes the browser's default 8px margin */
+}
+
+/* Headings use Bricolage Grotesque, matching the proposal deck */
+h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 4rem;
+    margin: 0 0 1rem; /* only a small gap below the logo */
+}
+
+/* Color variables, used with var(--name) */
+:root {
+    --orange: #ff5a36;
+    --primary-color: #ece8e8;
+}
+
+/* Sign Up page styles */
+
+/* Full-screen column that centers the logo and form */
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* The white card holding the form fields, stacked top to bottom */
+.data-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Puts each label's text above its input */
+.data-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.data-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Full-width orange submit button */
+.data-form button {
+    padding: 0.75rem;
+    background-color: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+/* Removes the default heading margin so the card's padding sets the spacing */
+.data-form h2 {
+    margin: 0;
+}
+
+/* Orange dot at the end of the logo */
+.dot {
+    color: var(--orange);
+}

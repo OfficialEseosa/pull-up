@@ -5,6 +5,7 @@ const app = express(); //creates the express application object
 app.use(express.static("public"));//register public as the directory for static files
 
 const mysql = require("mysql2"); //uses new mysql package
+//connection settings come from .env so the password is never in the code
 const conn = mysql.createConnection(
     {
         host:process.env.DB_HOST,
@@ -14,6 +15,7 @@ const conn = mysql.createConnection(
         port:process.env.DB_PORT
     });
 
+//opens the connection and logs whether it worked
 conn.connect(function(err)
 {
     if(err)
@@ -22,4 +24,4 @@ conn.connect(function(err)
         console.log("Database connection established");
     
 });
-app.listen(3000);
+app.listen(3000); //starts the server at http://localhost:3000
