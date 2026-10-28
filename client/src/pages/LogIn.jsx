@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import api from "../api.js";
 
 // Log in page: same layout and card as the sign up page
 function LogIn() {
-    // error is the "credentials were incorrect" message; success is the logged-in message
+    // error is the "credentials were incorrect" message
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+    const navigate = useNavigate();
 
     async function handleSubmit(event) {
         // keep the page from reloading
@@ -18,7 +18,10 @@ function LogIn() {
 
         try {
             const response = await api.post("/login", data);
-            setSuccess(response.data.message);
+            // remember who logged in so the home page knows (not real security yet, just for now)
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            // go to the home page and hand it the "logged in successfully" message
+            navigate("/home", { state: { message: response.data.message } });
         } catch (err) {
             setError(err.response?.data?.message || "Couldn't reach the server. Is it running?");
         }
@@ -28,11 +31,7 @@ function LogIn() {
         <div className="auth-page">
             <h1>Pull Up<span className="dot">.</span></h1>
 
-            {success ? (
-                <div className="data-form">
-                    <h2>{success}</h2>
-                </div>
-            ) : error ? (
+            {error ? (
                 // a failed log in gets its own message with a way back to the form
                 <div className="data-form">
                     <h2>{error}</h2>

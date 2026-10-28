@@ -77,6 +77,47 @@ h1 {
     margin: 0;
 }
 
+/* Home page styles */
+
+/* White bar across the top with the logo on the left and Log Out on the right */
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Smaller version of the logo for the top bar */
+.home-logo {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.home-header button {
+    padding: 0.5rem 1rem;
+    background-color: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Keeps the page content from stretching too wide on big screens */
+.home-main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Green note for "You have logged in successfully" */
+.home-message {
+    color: #1e7e34;
+    font-weight: 600;
+}
+
 /* Orange dot at the end of the logo */
 .dot {
     color: var(--orange);
