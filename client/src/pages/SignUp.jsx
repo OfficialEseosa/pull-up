@@ -33,7 +33,7 @@ function SignUp() {
 
     return (
         // Full-screen wrapper that centers the logo and the form
-        <div className="signup">
+        <div className="auth-page">
             {/* Logo: the dot is wrapped in a span so it can be colored orange */}
             <h1>Pull Up<span className="dot">.</span></h1>
 

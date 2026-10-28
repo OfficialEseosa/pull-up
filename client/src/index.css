@@ -18,10 +18,10 @@ h1 {
     --primary-color: #ece8e8;
 }
 
-/* Sign Up page styles */
+/* Sign up and log in page styles (both pages share these) */
 
 /* Full-screen column that centers the logo and form */
-.signup {
+.auth-page {
     display: flex;
     justify-content: center;
     align-items: center;
